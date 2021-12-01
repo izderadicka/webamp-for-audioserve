@@ -6,27 +6,64 @@
 </head>
 
 <body>
-    <div id="main">
-        <div>
-            <label>Folder: /</label>
-            <span id="current-path"></span>
+    <div id="main" class="container-fluid">
+        <div class=row>
+            BLA
         </div>
-        <div>
-        <label for="folder-list">Select Folder:</label>
-        <select id="folder-list">
-        </select>
-    </div>
-    <div>
-        <label for="trans-select">Transcoding</label>
-        <select id="trans-select">
-            <option value="0">None</option>
-            <option value="l">Low</option>
-            <option value="m">Medium</option>
-            <option value="h">High</option>
-        </select>
-    </div>
-    </div>
-    <div id="app" style="height: 100vh"></div>
+
+       <div class="row">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Audioserve Folders</h4>
+                </div>
+                <div class="card-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Folder: /</label>
+                            <span id="current-path"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="folder-list" class="col-form-label">Select Folder:</label>
+                        <select id="folder-list" class="form-95">
+                         </select>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="">
+                                <button id="btn-reload-folder" class="btn btn-primary">Reload Current Folder</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="trans-select" class="col-form-label">Transcoding</label>
+                            <select id="trans-select" class="form-95">
+                                <option value="0">None</option>
+                                <option value="l">Low</option>
+                                <option value="m">Medium</option>
+                                <option value="h">High</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="help-text" class="col-form-label">Help</label>
+                            <div>
+                           <textarea id="help-text" class="form-95">
+                               Lorem i psum
+                               i kockam
+                               i mysim
+                           </textarea>
+                        </div>
+                        </div>
+                        
+                        
+                </div>
+            </div>
+        
+        
+    
+    <div id="app" class="col-4" style="height: 100vh"></div>
+
+</div>
     
 </body>
 
