@@ -175,12 +175,13 @@ Scrollbar (only chrome & safari)
     box-shadow: -1px -1px #000;
 }
 .btn:focus {
-    border: 2px inset #fff !important;
     background: silver;
     color: #424242;
     box-shadow: -1px -1px #000 !important;
     outline: 0 !important;
-    background: url(assets/background.bmp);
+    border-color: buttonface;
+    border-right-color: #424242;
+    border-bottom-color: #424242;
 }
 .btn:active {
     border: 2px inset #fff !important;

@@ -1,0 +1,24 @@
+
+.icon {
+    width: 32px;
+    height: 32px;
+    margin: 4px; 
+}
+
+.winamp{
+    background-image: url(assets/icons/winamp2-32x32.png);
+}
+
+.help {
+    background-image: url(assets/icons/help_question_mark-0.png);
+}
+
+.icons-bar {
+    margin-left: 6px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.hidden {
+    display: none;
+}

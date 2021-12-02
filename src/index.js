@@ -5,14 +5,23 @@ import base64js from "base64-js";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./win95.css";
+import "./styles.css";
 
 const main = function () {
 
-  const AUDIOSERVE_URL = "http://localhost:3000";
+  let audioserveURL = "http://localhost:3000";
   //const AUDIOSERVE_SECRET = "kulisak";
-  const AUDIOSERVE_SECRET = null;
+  const audioserveSecret = "mypass";
 
-  let login = (secret) => {
+  let currentFolder = "";
+
+  const toggle = (id) => {
+    let x = document.getElementById(id);
+    x.classList.toggle("hidden");
+
+  }
+
+  const login = (secret) => {
     let secretBytes = new (TextEncoder)("utf-8").encode(secret);
     let randomBytes = new Uint8Array(32);
     window.crypto.getRandomValues(randomBytes);
@@ -30,7 +39,7 @@ const main = function () {
         let secret = base64js.fromByteArray(randomBytes) + "|" + base64js.fromByteArray(new Uint8Array(s));
         let form = new URLSearchParams();
         form.append("secret", secret);
-        return fetch(AUDIOSERVE_URL + "/authenticate", {
+        return fetch(audioserveURL + "/authenticate", {
           method: "POST",
           body: form,
           mode: "cors",
@@ -50,7 +59,7 @@ const main = function () {
 
   let loadFolder = (folder) => {
 
-    return fetch(AUDIOSERVE_URL + '/folder/' + folder, {
+    return fetch(audioserveURL + '/folder/' + folder, {
       method: "GET",
       mode: "cors",
       credentials: "include",
@@ -63,7 +72,7 @@ const main = function () {
         }
       })
       .then((list) => {
-
+        currentFolder = folder;
         let folders = list.subfolders;
 
 
@@ -91,7 +100,7 @@ const main = function () {
             metaData: {
               title: item.name
             },
-            url: AUDIOSERVE_URL + "/audio/" + item.path + "?trans="+ts,
+            url: audioserveURL + "/audio/" + item.path + "?trans="+ts,
             duration: item.meta.duration
           }
         })
@@ -101,15 +110,42 @@ const main = function () {
       })
       .catch((e) => console.error(e))
   };
-  if (AUDIOSERVE_SECRET) {
-    login(AUDIOSERVE_SECRET)
-      .then(() =>
-        loadFolder(""));
-  } else {
-    loadFolder("");
+
+  const prepareLogin = () => {
+    const url = document.getElementById("server-url");
+    url.value = audioserveURL;
+
+    document.getElementById("btn-login").addEventListener("click", (evt) => {
+      audioserveURL=url.value;
+      loadFolder("")
+      .then( () => {
+      toggle("card-folders");
+      toggle("card-login");
+      });
+    })
   }
 
+  prepareLogin();
+
+  // if (AUDIOSERVE_SECRET) {
+  //   login(AUDIOSERVE_SECRET)
+  //     .then(() =>
+  //       loadFolder(""));
+  // } else {
+  //   loadFolder("");
+  // }
+
   const player = new Webamp();
+
+  document.getElementById("icon-winamp").addEventListener("click", (evt) => {
+    player.reopen();
+  })
+
+  document.getElementById("icon-help").addEventListener("click", (evt) => toggle("card-help"));
+
+  document.getElementById("btn-reload-folder").addEventListener("click", (evt) => {
+    loadFolder(currentFolder);
+  })
 
   player.renderWhenReady(document.getElementById("app"));
 }();

@@ -1,70 +1,123 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="main" class="container-fluid">
-        <div class=row>
-            BLA
-        </div>
+      <div class="row icons-bar">
+        <a id="icon-winamp" class="winamp icon"></a>
+        <a id="icon-help" class="help icon"></a>
+      </div>
 
-       <div class="row">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Audioserve Folders</h4>
-                </div>
-                <div class="card-body">
-                        <div class="form-group">
-                            <label class="col-form-label">Folder: /</label>
-                            <span id="current-path"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="folder-list" class="col-form-label">Select Folder:</label>
-                        <select id="folder-list" class="form-95">
-                         </select>
-                        </div>
+      <div class="">
+        <div id="app" class=""></div>
+      </div>
 
-                        <div class="form-group ">
-                            <div class="">
-                                <button id="btn-reload-folder" class="btn btn-primary">Reload Current Folder</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="trans-select" class="col-form-label">Transcoding</label>
-                            <select id="trans-select" class="form-95">
-                                <option value="0">None</option>
-                                <option value="l">Low</option>
-                                <option value="m">Medium</option>
-                                <option value="h">High</option>
-                            </select>
-
-                        </div>
-
-                        <div class="form-group ">
-                            <label for="help-text" class="col-form-label">Help</label>
-                            <div>
-                           <textarea id="help-text" class="form-95">
-                               Lorem i psum
-                               i kockam
-                               i mysim
-                           </textarea>
-                        </div>
-                        </div>
-                        
-                        
-                </div>
+      <div class="row">
+        <div class="col-4">
+          <div id="card-login" class="card">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Audioserve Server</h4>
             </div>
-        
-        
-    
-    <div id="app" class="col-4" style="height: 100vh"></div>
+            <div class="card-body">
+             
+              <div class="form-group">
+                <label for="server-url" class="col-form-label"
+                  >Server URL:</label
+                >
+                <input type="text" id="server-url" class="form-95">
+              </div>
 
-</div>
-    
-</body>
+              <div class="form-group">
+                <label for="shared-secret" class="col-form-label"
+                  >Shared Secret:</label
+                >
+                <input type="password" id="shared-secret" class="form-95">
+              </div>
 
+              <div class="form-group">
+                <div class="">
+                  <button id="btn-login" class="btn btn-primary">
+                    Login with Server
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-4">
+          <div id="card-folders" class="card hidden">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Audioserve Folders</h4>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="col-form-label">Folder: /</label>
+                <span id="current-path"></span>
+              </div>
+              <div class="form-group">
+                <label for="folder-list" class="col-form-label"
+                  >Select Folder:</label
+                >
+                <select id="folder-list" class="form-95"></select>
+              </div>
+
+              <div class="form-group">
+                <div class="">
+                  <button id="btn-reload-folder" class="btn btn-primary">
+                    Reload Current Folder
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="trans-select" class="col-form-label"
+                  >Transcoding</label
+                >
+                <select id="trans-select" class="form-95">
+                  <option value="0">None</option>
+                  <option value="l">Low</option>
+                  <option value="m">Medium</option>
+                  <option value="h">High</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <div id="card-help" class="card hidden">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Help</h4>
+            </div>
+
+            <div class="form-group">
+              <label for="help-text" class="col-form-label">Help</label>
+              <div>
+                <textarea id="help-text" class="form-95">
+Demo of audioserve API in retro Win95 style.
+Not everything works well, but it is Windows 95 :-)
+
+Fist login to audioserve server (must have --cors enables and on https address).
+Then select playable folder via Select Folder.
+With each selection it can go up or down directory tree.
+
+We're back in 90's, so interface is quite simple.
+                   </textarea
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
