@@ -9,8 +9,7 @@ import "./styles.css";
 
 const main = function () {
 
-  let audioserveURL = "http://localhost:3000";
-  //const AUDIOSERVE_SECRET = "kulisak";
+  let audioserveURL = "https://audioserve.zderadicka.eu";
   const audioserveSecret = "mypass";
 
   let currentFolder = "";
@@ -54,7 +53,10 @@ const main = function () {
     let path = sel.value;
     console.log("Moving to", path);
 
-    loadFolder(path);
+    loadFolder(path).catch((e) => {
+      console.error("Failed to load folder", e);
+      alert("Folder load failed");
+    });
   })
 
   let loadFolder = (folder) => {
@@ -68,7 +70,7 @@ const main = function () {
         if (resp.status == 200) {
           return resp.json()
         } else {
-          throw new Error("Error reponse from server: " + resp.status + " " + resp.statusText);
+          throw new Error("Error response from server: " + resp.status + " " + resp.statusText);
         }
       })
       .then((list) => {
@@ -100,7 +102,7 @@ const main = function () {
             metaData: {
               title: item.name
             },
-            url: audioserveURL + "/audio/" + item.path + "?trans="+ts,
+            url: audioserveURL + "/audio/" + item.path + "?trans=" + ts,
             duration: item.meta.duration
           }
         })
@@ -108,32 +110,42 @@ const main = function () {
         player.setTracksToPlay(pl);
 
       })
-      .catch((e) => console.error(e))
   };
 
   const prepareLogin = () => {
     const url = document.getElementById("server-url");
     url.value = audioserveURL;
+    const sharedSecret = document.getElementById("shared-secret");
+    sharedSecret.value = audioserveSecret;
 
     document.getElementById("btn-login").addEventListener("click", (evt) => {
-      audioserveURL=url.value;
-      loadFolder("")
-      .then( () => {
-      toggle("card-folders");
-      toggle("card-login");
-      });
+      audioserveURL = url.value;
+      const pass = sharedSecret.value;
+      let loginPromise;
+      if (pass) {
+        loginPromise = login(pass).then((resp) => {
+          if (resp.status != 200) {
+            throw new Error("Login failed")
+          }
+          loadFolder("")
+        }
+        )
+      } else {
+        loginPromise = loadFolder("")
+      }
+      loginPromise
+        .then(() => {
+          toggle("card-folders");
+          toggle("card-login");
+        }, (e) => {
+          console.error("Fetch error:", e)
+          alert("Login error");
+        }
+        )
     })
   }
 
   prepareLogin();
-
-  // if (AUDIOSERVE_SECRET) {
-  //   login(AUDIOSERVE_SECRET)
-  //     .then(() =>
-  //       loadFolder(""));
-  // } else {
-  //   loadFolder("");
-  // }
 
   const player = new Webamp();
 
