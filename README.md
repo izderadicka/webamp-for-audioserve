@@ -1,3 +1,5 @@
-# Webamp playing from audioserve
+# Webamp player for audioserve
 
-Based on their minimal example.
+Just for fun :-)  Check demo [here](https://as-retro.zderadicka.eu/).
+
+Demonstrates basic use of audioserve API.
